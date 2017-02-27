@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPCF7 success page redirect - V1\n"
+"POT-Creation-Date: 2017-02-27 15:15+0100\n"
+"PO-Revision-Date: 2017-02-27 15:16+0100\n"
+"Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
+"Language-Team: Eoxia Dev Team <technique@eoxia.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_attr_e;_x\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: contact-form-7-success-page.php:58
+msgid "Redirect Settings"
+msgstr "Redirection"
+
+#: contact-form-7-success-page.php:80
+msgid "Select a page to redirect to on successful form submission."
+msgstr "Choisissez la page vers laquelle renvoyer le client lorsqu'il a envoyé son formulaire avec succés"
