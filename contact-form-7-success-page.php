@@ -18,14 +18,23 @@ function eo_wpcf7_check_session() {
 	/** Load translation for the plugin */
 	load_plugin_textdomain( 'eo_wpcf7_redirect_success_page', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
-	/** Checik if there is a session already started. If not start a new one. If already started read stored datas */
+	/** Check if there is a session already started. If not start a new one. If already started read stored datas */
 	if ( ! session_id() ) {
 		session_start();
-	} elseif ( ! empty( $_SESSION ) && ! empty( $_SESSION['eo_wpcf7_last_sended_email'] ) ) {
-		add_shortcode( 'eo_wpcf7_message', function ( $attrs ) {
-			return $_SESSION['eo_wpcf7_last_sended_email'][ $attrs['field'] ];
-		} );
 	}
+
+	add_shortcode( 'eo_wpcf7_message', function ( $attrs ) {
+		$value = __( 'You have not fill in the form', 'eo_wpcf7_redirect_success_page' );
+
+		$trans = get_transient( 'eo_wpcf7_last_sended_email' );
+		if ( ! empty( $_SESSION ) && ! empty( $_SESSION['eo_wpcf7_last_sended_email'] ) ) {
+			$value = $_SESSION['eo_wpcf7_last_sended_email'][ $attrs['field'] ];
+		} elseif ( false !== $trans ) {
+			$value = $trans[ $attrs['field'] ];
+		}
+
+		return $value;
+	} );
 }
 add_action( 'init', 'eo_wpcf7_check_session', 1 );
 
@@ -40,6 +49,7 @@ function eo_wpcf7_mail_sent( $current_form ) {
 	$submission = WPCF7_Submission::get_instance();
 	if ( $submission ) {
 		$_SESSION['eo_wpcf7_last_sended_email'] = $submission->get_posted_data();
+		set_transient( 'eo_wpcf7_last_sended_email', $submission->get_posted_data(), 30 );
 	}
 	if ( ! empty( $success_page ) ) {
 		wp_redirect( get_permalink( $success_page ) );
