@@ -52,16 +52,33 @@ function eo_wpcf7_mail_sent( $current_form ) {
 		set_transient( 'eo_wpcf7_last_sended_email', $submission->get_posted_data(), 30 );
 	}
 	if ( ! empty( $success_page ) ) {
-		wp_redirect( get_permalink( $success_page ) );
+		wp_safe_redirect( get_permalink( $success_page ) );
 		die();
 	}
 }
 add_action( 'wpcf7_mail_sent', 'eo_wpcf7_mail_sent' );
 
 /**
+ * [eo_wpcf7_submit description]
+ *
+ * @param  [type] $current_form [description]
+ * @param  [type] $form_result  [description]
+ *
+ * @return [type]               [description]
+ */
+// function eo_wpcf7_submit( $current_form, $result ) {
+// 	/** Get the page to redirect the user to from database regarding the form settings */
+// 	$success_page = get_post_meta( $current_form->id(), '_eo_wpcf7_after_save_contact_form_page', true );
+// 	$result['scripts_on_sent_ok'][] = "location.replace('" . get_permalink( $success_page ) . "')";
+//
+// 	return $result;
+// }
+// add_action( 'wpcf7_submit', 'eo_wpcf7_submit', 10, 2 );
+
+/**
  * Disable contact form 7 js functions. This will disable direct checking on fields that are required.
  */
-add_filter( 'wpcf7_load_js', '__return_false' );
+// add_filter( 'wpcf7_load_js', '__return_false' );
 
 /**
  * Add a tab to configure the redirect page
@@ -73,7 +90,7 @@ function _eo_wpcf7_add_setting_tab( $panels ) {
 
 	return $panels;
 }
-add_action( 'wpcf7_editor_panels', '_eo_wpcf7_add_setting_tab' );
+// add_action( 'wpcf7_editor_panels', '_eo_wpcf7_add_setting_tab' );
 
 /**
  * Define the html output for the setting tab allowing to chose the page where the customer will be redirect to
